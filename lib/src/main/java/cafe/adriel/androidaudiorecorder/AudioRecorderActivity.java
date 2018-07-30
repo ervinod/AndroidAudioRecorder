@@ -283,7 +283,7 @@ public class AudioRecorderActivity extends AppCompatActivity
                     new PullTransport.Default(Util.getMic(source, channel, sampleRate), AudioRecorderActivity.this),
                     new File(filePath));
         }
-        recorder.resumeRecording();
+        recorder.startRecording();
 
         startTimer();
     }
@@ -320,7 +320,11 @@ public class AudioRecorderActivity extends AppCompatActivity
 
         recorderSecondsElapsed = 0;
         if (recorder != null) {
-            recorder.stopRecording();
+             try {
+                recorder.stopRecording();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             recorder = null;
         }
 
